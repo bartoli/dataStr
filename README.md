@@ -2,7 +2,9 @@
 A data sharing platform on nostr
 
 The sharer registers a repository of data, with optional subdirectories and versions support
+
 The repository can be public or private
+
 When private, the sharer creates keys that allow read and/or write access to parts of the repository.
 
 Keys are sent by pair.
