@@ -1,5 +1,5 @@
-# dataStr
-A data sharing platform using nostr for gossip
+# disaStr
+A Decentralized Information Sharing Architecture using nostr for gossip
 
 Nostr Events:
 EV0 : i have a part of this repository 
