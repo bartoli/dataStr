@@ -3,7 +3,7 @@ A Decentralized Information Sharing Architecture using nostr for gossip
 
 *Data Sources* can be plugged to access various data storage platforms (a data foldder, a git repository,...).<br>
 *nostr* is used to gossip who has what data, and who wants it.<br>
-Users who have aces to the repository can help broadcast the repository data. Data excahange is made using peer to peer connections.<br>
+Data excahange is made using peer to peer connections. Users who have aces to the repository can help broadcast the repository data.<br>
 
 
 ## Data providers
