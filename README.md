@@ -13,23 +13,23 @@ Any data storing system can be fit to be used for sharing. It must have the foll
 - The repository can have versionning for its files, that will be publicly represented as hashes (like git commit hashs)
 
 ## Nostr Gossip:
-Local user accounts are associated with a nostr identity for comunication
+Local user accounts are associated with a nostr identity for communication
 
-Clients will send events fo the following meaning
-EV1 : I have repo *repo_hash*
-Clients will be able to request the follwing
-REQ1 : Who has the repo *repo_hash*?
-
+Clients will send events for the following meaning:<br>
+EV1 : I have repo *repo_hash*<br>
+Clients will be able to request the follwing<br>
+REQ1 : Who has the repo *repo_hash*?<br>
 
 ## Security :
-P2P connection usr secure socket connections
+P2P connection use encrypted socket connections
 
 ## Privacy
 - The repository id is not publicly associated with a repository name. Only someone who has access credentials get's it's id
-- REQ1 comes with a field containing an access key granted when access was given to a repository, so providers can ignore spam repository requests
-- EV1 comes wiht a hash of some data of the repo 
+- REQ1 comes with a field containing an access key granted when access was given to a repository, so providers can ignore spam repository requests. And a range of data (subpath, specific version hash)
+- EV1 comes with a hash of some specific data of the repo to prove ownership
 
-
+## Permissions
+The owner can give various access permissions to a user. Each granted permissions creates some data, and a hash of that data is given to the user. The owner can then revoke those permissions. 
 
 
 P2P events:
