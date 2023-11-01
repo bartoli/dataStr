@@ -45,3 +45,7 @@ When a user or the owner detects wrong returns, it signals the broadcaster of po
 ## Data property
 A owner should consider that any data it shared is now also the property of the user it shared read access with.<br>
 Any user has a 'one-click' option to create a fork of a repository it has a copy of, with all the initial data except for owner-signed metadata (permissions,..), that will be reset<br>
+
+## Implementations, current state & roadmap
+The project is cutrrently into _thinking_ process. It will probably start with data providers with simple folder and/or git repo sharing data providers.<br>
+First implementations might use a mix of python (for parts that do not need high performance and should be auditable) and C++ (for performance intensive functions)
