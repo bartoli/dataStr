@@ -1,5 +1,5 @@
 # disaStr
-A Decentralized Information Sharing Architecture using nostr for gossip
+_A Decentralized Information Sharing Architecture using nostr for gossip_
 
 *Data Sources* can be plugged to access various data storage platforms (a data foldder, a git repository,...).<br>
 *nostr* is used to gossip who has what data, and who wants it.<br>
