@@ -1,7 +1,12 @@
 # disaStr
 A Decentralized Information Sharing Architecture using nostr for gossip
 
-Nostr Events:
+*Data Sources* can be plugged to access various data storage platforms (a data foldder, a git repository,...).<br>
+*nostr* is used to gossip who has what data, and who wants it.<br>
+Data excahange is made using peer to peer connections.<br>
+
+
+Nostr Gossip:
 EV0 : i have a part of this repository 
 r : repo id (hash)
 
