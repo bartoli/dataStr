@@ -3,7 +3,7 @@ _A Decentralized Information Sharing Architecture using nostr for gossip_
 
 *Data Sources* can be plugged to access various data storage platforms (a data foldder, a git repository,...).<br>
 *nostr* is used to gossip who has what data, and who wants it.<br>
-Data excahange is made using peer to peer connections. Users who have aces to the repository can help broadcast the repository data.<br>
+Data exchange is made using peer to peer connections. Users who have aces to the repository can act as a *provider* and help broadcast the repository data.<br>
 
 
 ## Data providers
@@ -29,16 +29,20 @@ P2P connection use encrypted socket connections
 - EV1 comes with a hash of some specific data of the repo to prove ownership
 
 ## Permissions
-The owner can give various access permissions to a user. Each granted permissions creates some data, and a hash of that data is given to the user. The owner can then revoke those permissions. 
+The owner can give various access permissions to a user.<br>
+Each granted permissions creates some data, and a hash (with the owner's private key) of that data is given to the user. The owner can then revoke those permissions.
+Data access can ONLY be granted by the owner<br>
+Permissions can be shared as read only data so other users who have the repository data can share it. _The owner must be aware that permission revocation will not be instantly braoadcasted to everyone before allowing shared repository broadcasting_
 
+## Onboarding
+The process of giving access to a user is not part of the p2p exchanges. An API provides the functionality, and gives back som data to provide the user. This can be integrated any way you wish
 
-P2P events:
-The sharer registers a repository of data, with optional subdirectories and versions support
+## Data integrity
+When acces is granted, the owner shares with a user a hash of a specific range of data (randomly chosen for that specific user) of the repository. This is in randomly generated 1MB chunk of data that all broadcasters will have to store permanently.<br>
+A user can query broadcasters for the hash of their test range, and depending on the response, know if data was altered, or it they just pretend to have it.
+Any user,broadcaster,owner, will also regularly do requests for random ranges. Not only on the _bootstrap data_, also on the actual shared data that it already has in the form of pretend data requests to multiple users. If local data corruption si detected, data will be re-downloaded. If suspicious data are sent on multiple intervals by a same broadcaster, that broadcaster will be blacklisted by that user (or it's access will be revoked if it's a test by the owner) 
+When a user or the owner detects wrong returns, it signals the broadcaster of potential data loss, so he has an opportunity to update. After multiple errors detected by the oswner, the suspicious broadcaster might have access revocated.
 
-The repository can be public or private
-
-When private, the sharer creates keys that allow read and/or write access to parts of the repository.
-
-Keys are sent by pair.
-- K1: One key allows to show that you have access authorization. It is used to decrypt the data paths in the data requests
-- K2: One allows to decrypt the data received by the repo
+## Data property
+A owner should consider that any data it shared is now also the property of the user it shared read access with.
+Any user has a 'one-click' option to create a fork of a repository it has a copy of, with all the initial data except for owner-signed metadata (permissions,..) that will be reset
