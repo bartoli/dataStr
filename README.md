@@ -32,7 +32,7 @@ P2P connection use encrypted socket connections
 The owner can give various access permissions to a user.<br>
 Each granted permissions creates some data, and a hash (with the owner's private key) of that data is given to the user. The owner can then revoke those permissions.
 Data access can ONLY be granted by the owner<br>
-Permissions can be shared as read only data so other users who have the repository data can share it. _The owner must be aware that permission revocation will not be instantly braoadcasted to everyone before allowing shared repository broadcasting_
+Permissions can be shared as read only data so other users who have the repository data can share it and help scale the bandwidth demand as the repository grows. _The owner must be aware that permission revocation will not be instantly braodcasted to everyone before allowing shared repository broadcasting_
 
 ## Onboarding
 The process of giving access to a user is not part of the p2p exchanges. An API provides the functionality, and gives back som data to provide the user. This can be integrated any way you wish
