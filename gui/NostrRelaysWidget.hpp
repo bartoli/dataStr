@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QWebSocket>
 class QTableWidget;
 
 class NostrRelaysWidget : public QWidget
@@ -9,6 +10,8 @@ class NostrRelaysWidget : public QWidget
 
 public:
   NostrRelaysWidget(QWidget* parent);
+
+  using ConnexionState = QAbstractSocket::SocketState;
 private:
   QTableWidget* _tableWidget;
 };

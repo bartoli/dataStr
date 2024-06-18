@@ -26,6 +26,7 @@ bool NostrConfig::fromSettings(QSettings& settings)
       settings.endGroup();
     }
     settings.endGroup();
+    autoConnect = settings.value("autoConnect", QVariant(false)).toBool();
   }
   settings.endGroup();
 

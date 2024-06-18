@@ -13,10 +13,11 @@ using NostrRelayConfig = struct
   void toSettings(QSettings&) const;
 };
 
-using NostrConfig = struct
+class NostrConfig
 {
   //key is url
   QMap<QString, NostrRelayConfig> relays;
+  bool autoConnect = false;
 
   void init();
   bool fromSettings(QSettings&);

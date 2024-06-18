@@ -2,16 +2,19 @@
 #include <nostr/NostrRelayConnection.hpp>
 #include <nostr/NostrUtils.hpp>
 
-NostrClient::NostrClient(const Identity& id)
-    :_identity(id)
-{}
+NostrClient::NostrClient(NostrConfig& config)
+ :_config(config){
+
+  for (auto& addr : config.relays.keys())
+    registerRelay(addr);
+}
 
 NostrClient::~NostrClient()
 {
     qDeleteAll(_relays);
 }
 
-void NostrClient::registerRelay(const QString& address)
+NostrRelayConnection* NostrClient::registerRelay(const QString& address)
 {
     //Fix input
     //Remove extra spaces
@@ -20,41 +23,30 @@ void NostrClient::registerRelay(const QString& address)
     if(fixed_address.startsWith("wss://"))
         fixed_address = fixed_address.mid(6);
 
-    if(_relays.contains(fixed_address))
-        return;
+    RelayMap::iterator it = _relays.find(fixed_address);
+    if(it != _relays.end())
+        return it.value();
 
     //Create an instance to communicate with the relay
-    NostrRelayConnection* relay = new NostrRelayConnection(*this, fixed_address);
-    auto it = _relays.insert(fixed_address, relay);
-    if(_connectionInitiated)
+    NostrRelayConnection* relay = new NostrRelayConnection(fixed_address);
+    it = _relays.insert(fixed_address, relay);
+    if(_autoConnect)
         it.value()->startConnection();
+    return it.value();
 }
 
-bool NostrClient::connectRelays(bool wait)
+bool NostrClient::connectAllRelays(bool wait)
 {
-    if (_connectionInitiated)
-    {
-        //Just return whether we are already connected or not to some relays
-        for (const auto & relay : _relays)
-        {
-            if(relay->isConnected())
-                return true;
-        }
-        return false;
-    }
+  _autoConnect = true;
 
-    _connectionInitiated = true;
-    for (auto & relay : _relays)
-    {
-        auto start_connection = [&relay, &wait]()
-        {
-            bool success = relay->startConnection(wait);
-        };
-        start_connection();
-    }
+  //Just return whether we are already connected or not to some relays
+  for (const auto & relay : _relays)
+  {
+      if(relay->isConnected())
+          return true;
+  }
+  return false;
 
-    if(wait)
-    {}
-
-    return true;
+  if(wait)
+    {/*TODO*/}
 }

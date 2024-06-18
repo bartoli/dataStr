@@ -1,6 +1,7 @@
 #ifndef NOSTRCLIENT_HPP
 #define NOSTRCLIENT_HPP
 
+#include <nostr/NostrConfig.hpp>
 #include <nostr/NostrRelayConnection.hpp>
 #include <nostr/NostrUtils.hpp>
 
@@ -11,22 +12,22 @@
 class NostrClient : public QThread
 {
 public:
-    NostrClient(const Identity& id);
+    NostrClient(NostrConfig& config);
     ~NostrClient();
 
-    void registerRelay(const QString& address);
-    bool connectRelays(bool wait = false);
-    const Identity& identity() const { return _identity; }
+    NostrRelayConnection* registerRelay(const QString& address);
+    bool connectAllRelays(bool wait = false);
+    //const Identity& identity() const { return _identity; }
 
 private:
-    NostrClient() = delete;
-
-    const Identity _identity;
-    QMap<QString, NostrRelayConnection*> _relays;
+    //const Identity _identity;
+    using RelayMap = QMap<QString, NostrRelayConnection*>;
+    RelayMap _relays;
+    NostrConfig& _config;
 
     //Indicates if we already asked to connect to relays.
     //used to enable automatic connect to new added relays after we started connecting
-    bool _connectionInitiated = false;
+    bool _autoConnect = false;
 };
 
 #endif // NOSTRCLIENT_HPP
