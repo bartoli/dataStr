@@ -15,6 +15,7 @@ public:
 
   //void setNostrIdentity(const Identity&);
 
+  NostrClient& getClient() { return _client; }
   Config& getConfig() { return _config; }
   Context& getContext() { return _context; }
 

@@ -42,6 +42,8 @@ public:
   NostrRelayConnection(/*const NostrClient& client, */const QString& address);
   bool startConnection(bool wait = false);
   bool isConnected() const;
+  
+  QWebSocket& getSocket() { return _socket; }
 
 private:
   //const NostrClient& _client;

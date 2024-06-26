@@ -4,22 +4,28 @@
 #include <QString>
 class QSettings;
 
-using NostrRelayConfig = struct
+class NostrRelayConfig
 {
-  bool enabled;
-  QString name;
+public:
+	NostrRelayConfig() = default;
+	bool enabled = false;;
+	QString name;
 
-  bool fromSettings(QSettings&);
-  void toSettings(QSettings&) const;
+	bool fromSettings(QSettings&);
+	void toSettings(QSettings&) const;
 };
 
 class NostrConfig
 {
-  //key is url
-  QMap<QString, NostrRelayConfig> relays;
-  bool autoConnect = false;
+	Q_DISABLE_COPY(NostrConfig)
+public:
+	NostrConfig() = default;
+	//key is url
+	using RelayConfigMap = QMap<QString, NostrRelayConfig>;
+	RelayConfigMap relays;
+	bool autoConnect = false;
 
-  void init();
-  bool fromSettings(QSettings&);
-  void toSettings(QSettings&) const;
+	void init();
+	bool fromSettings(QSettings&);
+	void toSettings(QSettings&) const;
 };

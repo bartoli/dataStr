@@ -165,7 +165,7 @@ bech32_encoding bech32_decode(char* hrp, uint8_t *data, size_t *data_len, const 
   }
 }
 
-QByteArray toBech32(QByteArray& hrp, const QByteArray& bytes)
+QByteArray toBech32(const QByteArray& hrp, const QByteArray& bytes)
 {
   QByteArray out;
   out.resize(128);

@@ -2,11 +2,13 @@
 
 #include <nostr/NostrConfig.hpp>
 
-using Config = struct
+class Config
 {
-  NostrConfig nostr;
-  bool connectAtStartup = true;
+public:
+	Config() = default;
+	NostrConfig nostr;
+	bool connectAtStartup = true;
 
-  void init();
-  void load();
+	void init();
+	void load();
 };

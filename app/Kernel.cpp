@@ -8,8 +8,13 @@ Kernel::Kernel()
   _config.init();
   //load config files
   _config.load();
-  //register relays
 
+  //register relays
+  QMapIterator<QString, NostrRelayConfig> it(_config.nostr.relays);
+  while (it.hasNext())
+  {
+      auto* relay_con = _client.registerRelay(it.next().key());
+  }
 
 }
 

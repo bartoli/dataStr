@@ -17,6 +17,6 @@ int check_sig(const QByteArray& message, const QByteArray& signedMessage, const 
 
 // BECH32 utils
 //generate a bech32 adress with a given hrp, and a key (binary bytes)
-QByteArray toBech32(QByteArray& hrp, const QByteArray& bytes);
+QByteArray toBech32(const QByteArray& hrp, const QByteArray& bytes);
 //extract address hexstring from a bech32 adress
 QByteArray fromBech32(const QByteArray& bech32);

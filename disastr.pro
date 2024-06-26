@@ -23,7 +23,7 @@ win32-msvc* {
     LIBS += -lssl -lcrypto
 }
 
-SCHNORR_DIR = $$PWD/3rdparty/secp256k1
+SCHNORR_DIR = $$_PRO_FILE_PWD_/3rdparty/secp256k1
 INCLUDEPATH += $$SCHNORR_DIR/include/ bech32/ bitcoin-core/
 
 DEFINES += \
@@ -48,10 +48,12 @@ SOURCES += \
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-SOURCES += main.cpp \
-    $$files(crypto/*.cpp) \
-    $$files(nostr/*.cpp)
+SOURCES += $$files(*.cpp)
+SOURCES += $$files(app/*.cpp)
+SOURCES += $$files(crypto/*.cpp)
+SOURCES += $$files(gui/*.cpp)
+SOURCES += $$files(nostr/*.cpp)
 
 #Header to scan for moc etc..
-HEADERS += $$files(nostr/*.hpp)
+HEADERS += $$files(*.hpp, true)
 

@@ -28,6 +28,7 @@ NostrRelaysWidget::NostrRelaysWidget(QWidget* parent)
   while(it.hasNext())
   {
     it.next();
+    auto& key = it.key();
     _tableWidget->insertRow(row);
     auto& relay(it.value());
     auto col0 = new QTableWidgetItem();
@@ -37,10 +38,14 @@ NostrRelaysWidget::NostrRelaysWidget(QWidget* parent)
     _tableWidget->setItem(row, 0, col0);
     auto col1 = new QTableWidgetItem();
     col1->setFlags(Qt::ItemFlag::NoItemFlags);
-    col1->setText(it.key());
+    col1->setText(key);
     _tableWidget->setItem(row, 1, col1);
     QPushButton* connectBtn = new QPushButton("Connect", _tableWidget);
     _tableWidget->setCellWidget(row, 3, connectBtn);
+
+    connect(&kernel->getClient().registerRelay(key)->getSocket(), &QWebSocket::stateChanged, this, [this, &key](QAbstractSocket::SocketState state) {_updateConnState(key, state); });
+
+
 
 
 
@@ -51,4 +56,9 @@ NostrRelaysWidget::NostrRelaysWidget(QWidget* parent)
   _tableWidget->resizeColumnsToContents();
   layout->addWidget(_tableWidget);
   setLayout(layout);
+}
+
+void NostrRelaysWidget::_updateConnState(const QString& key, const QAbstractSocket::SocketState state)
+{
+
 }

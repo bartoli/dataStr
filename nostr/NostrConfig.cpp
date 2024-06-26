@@ -4,7 +4,7 @@
 
 void NostrConfig::init()
 {
-  relays = { {"relay.damus.io",{true, "Damus"}} };
+    relays["relay.damus.io"] = NostrRelayConfig{true, "Damus"};
 }
 
 bool NostrConfig::fromSettings(QSettings& settings)
